@@ -9,6 +9,7 @@ The blueprint serves as the authoritative design baseline for Power BI implement
 * Power BI consumes governed analytical data rather than raw source files.
 * The semantic model follows dimensional-modeling principles.
 * KPI calculations are implemented consistently through governed DAX measures.
+* Revenue and Payment Value remain analytically separate.
 * Report pages directly support approved business questions.
 * Filters and interactions follow the semantic-model design.
 * Performance and maintainability are considered before implementation.
@@ -259,7 +260,7 @@ One row per order.
 
 **Business purpose:**
 
-Order-level lifecycle and order-status analysis.
+Order-level lifecycle, order-status, order-revenue, customer, regional, and order-volume analysis.
 
 ---
 
@@ -271,7 +272,7 @@ One row per `order_id + order_item_id`.
 
 **Business purpose:**
 
-Product, category, seller, item-volume, price, and freight analysis.
+Product, category, seller, item-volume, item-price, and freight analysis.
 
 ---
 
@@ -283,7 +284,9 @@ One row per `order_id + payment_sequential`.
 
 **Business purpose:**
 
-Payment-value and payment-method analysis.
+Payment-value, payment-method, and installment analysis.
+
+Payment data is analytically separate from Revenue.
 
 ---
 
@@ -331,6 +334,12 @@ Key attributes include:
 * ZIP Prefix
 * City
 * State
+
+The governed unique-customer identifier is:
+
+```text
+dim_customer[customer_unique_id]
+```
 
 ---
 
@@ -456,7 +465,7 @@ fact_payments     ✕ fact_reviews
 
 Shared dimensions provide the analytical filter paths.
 
-This prevents ambiguous relationships and double-counting risks.
+This prevents ambiguous relationships, incorrect filter propagation, and double-counting risks.
 
 ---
 
@@ -464,7 +473,7 @@ This prevents ambiguous relationships and double-counting risks.
 
 `dim_date` is the authoritative Power BI date dimension.
 
-The date table should be configured as the Power BI Date Table using:
+The date table must be configured as the Power BI Date Table using:
 
 ```text
 dim_date[full_date]
@@ -507,9 +516,13 @@ These dates represent different business events.
 
 The model must not create multiple active relationships from the same date dimension to the same fact table if that would create ambiguity.
 
-The implementation must explicitly manage active and inactive date relationships and use appropriate DAX time/event-role logic where required.
+The implementation must explicitly manage active and inactive date relationships and use appropriate DAX event-role logic where required.
 
-The primary reporting date should be clearly identified during implementation.
+## Primary Reporting Date
+
+The **Purchase Date** is the primary reporting date for standard sales, order, product, regional, seller, and customer analysis.
+
+Alternate dates should only be used when a KPI explicitly represents a different business event.
 
 ---
 
@@ -553,6 +566,9 @@ Core measures include:
 [Total Items]
 [AOV]
 
+[Total Payment Value]
+[Payment Method Share]
+
 [MoM Sales Growth %]
 [YoY Sales Growth %]
 [YTD Sales]
@@ -577,17 +593,87 @@ Core measures include:
 [Repeat Customer %]
 [Customer Sales]
 [Orders per Customer]
+
+[Customer Orders]
+[Product Item Volume]
+[Repeat vs Non-Repeat Customer Count]
 ```
 
-Additional classification/supporting measures required by the report design must also be explicitly documented in `dax_plan.md`.
+All production measures are governed by:
+
+```text
+docs/powerbi/dax_plan.md
+```
 
 ---
 
-# 18. Sales Definition Governance
+# 18. Revenue and Sales Definition Governance
 
-The Power BI model contains two distinct sales concepts.
+Revenue/Sales has one approved business definition:
 
-## Payment-Based Sales
+```text
+Revenue = Item Revenue
+```
+
+Freight is excluded.
+
+The analytical implementation uses different fact-table representations depending on the required analytical grain.
+
+## 18.1 Order-Level Revenue
+
+For overall, customer, and regional Revenue analysis:
+
+```text
+fact_orders[order_revenue]
+```
+
+is the governed order-level Revenue field.
+
+Therefore:
+
+```DAX
+Total Sales =
+SUM ( fact_orders[order_revenue] )
+```
+
+This allows customer and geographic dimensions to filter Revenue through the order fact.
+
+---
+
+## 18.2 Item-Level Revenue
+
+For product, category, and seller analysis:
+
+```text
+fact_order_items[price]
+```
+
+is the governed Item Revenue source.
+
+Examples:
+
+```DAX
+Category Sales =
+SUM ( fact_order_items[price] )
+```
+
+```DAX
+Product Sales =
+SUM ( fact_order_items[price] )
+```
+
+```DAX
+Seller Sales =
+SUM ( fact_order_items[price] )
+```
+
+These measures represent Item Revenue at their respective analytical grains.
+
+---
+
+# 19. Payment Value Governance
+
+Payment Value is a separate analytical concept.
 
 Source:
 
@@ -595,35 +681,33 @@ Source:
 fact_payments[payment_value]
 ```
 
-Used for:
+Governed measure:
+
+```DAX
+Total Payment Value =
+SUM ( fact_payments[payment_value] )
+```
+
+Payment Value may be used for:
+
+* Payment method analysis
+* Payment behavior analysis
+* Installment analysis
+* Payment-method contribution
+
+Payment Value must **not** be used as:
 
 * Total Sales
+* Revenue
 * AOV
-* Time-based sales analysis
 * Regional Sales
 * Customer Sales
 
-## Item-Price Sales
-
-Source:
-
-```text
-fact_order_items[price]
-```
-
-Used for:
-
-* Category Sales
-* Product Sales
-* Seller Sales
-
-These definitions must not be silently substituted for one another.
-
-Every report visual must use the appropriate business definition.
+Revenue and Payment Value must never be combined into a generic Sales calculation.
 
 ---
 
-# 19. Report Architecture
+# 20. Report Architecture
 
 The report consists of four primary pages.
 
@@ -638,11 +722,11 @@ Each page has a distinct analytical purpose.
 
 ---
 
-# 20. Page 1 — Executive Sales Overview
+# 21. Page 1 — Executive Sales Overview
 
 ## Purpose
 
-Provide an executive summary of overall sales performance.
+Provide an executive summary of overall Revenue and sales performance.
 
 ## Primary Measures
 
@@ -658,9 +742,11 @@ Provide an executive summary of overall sales performance.
 * Sales by Category
 * Sales by Region
 
+All standard sales visuals use the approved Item Revenue definition.
+
 ---
 
-# 21. Page 2 — Product & Category Analysis
+# 22. Page 2 — Product & Category Analysis
 
 ## Purpose
 
@@ -684,9 +770,15 @@ Analyze product and category performance and sales concentration.
 * Product Pareto
 * Product performance detail
 
+Product and category sales use:
+
+```text
+fact_order_items[price]
+```
+
 ---
 
-# 22. Page 3 — Regional & Seller Performance
+# 23. Page 3 — Regional & Seller Performance
 
 ## Purpose
 
@@ -708,9 +800,21 @@ Analyze geographic and seller performance.
 * Top/bottom sellers
 * Seller performance detail
 
+Regional Sales uses order-level Item Revenue:
+
+```text
+fact_orders[order_revenue]
+```
+
+Seller Sales uses:
+
+```text
+fact_order_items[price]
+```
+
 ---
 
-# 23. Page 4 — Customer Analysis
+# 24. Page 4 — Customer Analysis
 
 ## Purpose
 
@@ -730,9 +834,21 @@ Analyze customer scale and repeat-purchasing behavior.
 * Customer-level performance
 * Customer geographic analysis
 
+Customer Sales uses order-level Item Revenue:
+
+```text
+fact_orders[order_revenue]
+```
+
+Customer identity uses:
+
+```text
+dim_customer[customer_unique_id]
+```
+
 ---
 
-# 24. Filter Architecture
+# 25. Filter Architecture
 
 ## Global / Synchronized Filters
 
@@ -775,7 +891,7 @@ Filters must use dimension attributes rather than unnecessary fact-table fields.
 
 ---
 
-# 25. Region and State Governance
+# 26. Region and State Governance
 
 The current model uses:
 
@@ -795,22 +911,24 @@ dim_seller[seller_state]
 
 This distinction must be preserved in the report.
 
+Regional Revenue is based on customer state unless an approved KPI explicitly specifies seller geography.
+
 ---
 
-# 26. Visual Architecture
+# 27. Visual Architecture
 
 Visual selection follows analytical purpose.
 
-| Analytical Requirement    | Preferred Visual     |
-| ------------------------- | -------------------- |
-| Headline KPI              | KPI Card             |
-| Time trend                | Line Chart           |
-| Ranking                   | Horizontal Bar Chart |
-| Contribution              | Bar Chart            |
-| Pareto analysis           | Line + Column Chart  |
-| Detailed records          | Table / Matrix       |
-| Geographic interpretation | Map where justified  |
-| Geographic comparison     | Bar Chart            |
+| Analytical Requirement | Preferred Visual |
+|---|---|
+| Headline KPI | KPI Card |
+| Time trend | Line Chart |
+| Ranking | Horizontal Bar Chart |
+| Contribution | Bar Chart |
+| Pareto analysis | Line + Column Chart |
+| Detailed records | Table / Matrix |
+| Geographic interpretation | Map where justified |
+| Geographic comparison | Bar Chart |
 
 Decorative visuals are excluded.
 
@@ -818,7 +936,7 @@ Every visual must have a defined business purpose and documented field/measure d
 
 ---
 
-# 27. Interaction Architecture
+# 28. Interaction Architecture
 
 The report supports controlled:
 
@@ -839,7 +957,7 @@ Interactions must not create unexpected filter propagation or contradict the sem
 
 ---
 
-# 28. UX Standards
+# 29. UX Standards
 
 Primary page hierarchy:
 
@@ -885,7 +1003,7 @@ Terminology and number formatting must remain consistent throughout the report.
 
 ---
 
-# 29. Performance Strategy
+# 30. Performance Strategy
 
 The Power BI model is designed around:
 
@@ -935,7 +1053,7 @@ PostgreSQL views or aggregations should only be introduced when measured perform
 
 ---
 
-# 30. Refresh Strategy
+# 31. Refresh Strategy
 
 The project does not require real-time reporting.
 
@@ -959,7 +1077,7 @@ The exact production refresh mechanism depends on the eventual Power BI deployme
 
 ---
 
-# 31. Data Lineage
+# 32. Data Lineage
 
 The intended lineage is:
 
@@ -987,7 +1105,7 @@ The Power BI layer should not independently recreate upstream cleaning or busine
 
 ---
 
-# 32. Governance and Maintainability
+# 33. Governance and Maintainability
 
 The Power BI implementation should maintain:
 
@@ -1012,11 +1130,11 @@ filter_interaction_plan.md
 dax_plan.md
 ```
 
-Changes to the semantic model or KPI definitions should be reflected in the corresponding documentation.
+Changes to the semantic model or KPI definitions must be reflected in the corresponding documentation.
 
 ---
 
-# 33. Security Boundary
+# 34. Security Boundary
 
 The current project does not define a requirement for row-level security.
 
@@ -1026,7 +1144,7 @@ If the report is later deployed to multiple business audiences requiring restric
 
 ---
 
-# 34. Scope Restrictions
+# 35. Scope Restrictions
 
 The Power BI solution must not introduce unsupported KPIs or report pages for:
 
@@ -1043,7 +1161,7 @@ These areas are outside the approved project scope or unsupported by the current
 
 ---
 
-# 35. Implementation Boundaries
+# 36. Implementation Boundaries
 
 Power BI is responsible for:
 
@@ -1068,7 +1186,7 @@ Python/SQL validation remains upstream of Power BI and is not replaced by Power 
 
 ---
 
-# 36. Phase 15 Deliverables
+# 37. Phase 15 Deliverables
 
 The completed Power BI planning package is:
 
@@ -1087,7 +1205,7 @@ These documents collectively define the implementation baseline for Phase 16.
 
 ---
 
-# 37. Final Architecture Decision
+# 38. Final Architecture Decision
 
 The approved architecture is:
 
@@ -1138,7 +1256,7 @@ The approved architecture is:
 
 ---
 
-# 38. Final Decision
+# 39. Final Decision
 
 The Power BI solution will use:
 
@@ -1152,6 +1270,13 @@ The Power BI solution will use:
 * No fact-to-fact relationships
 * Import storage mode
 * Explicit DAX measures
+* Item Revenue as the approved Revenue/Sales definition
+* Freight excluded from Revenue
+* `fact_orders[order_revenue]` for order-level, customer, and regional Revenue
+* `fact_order_items[price]` for category, product, and seller Revenue
+* `fact_payments[payment_value]` as a separate Payment Value metric
+* `dim_customer[customer_unique_id]` for unique-customer analysis
+* `dim_date[full_date]` for standard time intelligence
 * Four primary report pages
 * Controlled slicers and interactions
 * Daily refresh as the target operational cadence
