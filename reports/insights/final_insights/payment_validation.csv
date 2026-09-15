@@ -1,0 +1,8 @@
+Check,Result,Status,Evidence
+Total payment value,"R$16,008,872.12",PASS,Payment metrics / SQL / Excel
+Credit card value,"R$12,542,084.19",PASS,Payment metrics / SQL
+Credit card share,78.34%,PASS,Payment-value calculation
+Boleto share,17.92%,PASS,Payment-value calculation
+Payment values sum,"R$16,008,872.12",PASS,Listed payment-method values
+Measure distinction,Value share ≠ transaction-count share,PASS,EDA/payment profile
+Causal interpretation,No cause claimed for payment preference,PASS,Final insight review
