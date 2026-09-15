@@ -1,0 +1,7 @@
+Check,Scope,Result,Status,Evidence
+Top category,health_beauty,"R$1,258,681.34",PASS,Business metrics / Excel / SQL
+Top 3 share,3 categories,25.76%,PASS,Calculated from reconciled total revenue
+Top 5 share,5 categories,39.74%,PASS,Calculated from reconciled total revenue
+Top 10 share,10 categories,62.36%,PASS,Category analytical output
+80% concentration,18 of 72 valid translated categories,≈81.2%,PASS,EDA/category analysis
+Double-counting check,Category revenue vs total item revenue,"Reconciles to R$13,591,643.70",PASS,Reconciliation checks
