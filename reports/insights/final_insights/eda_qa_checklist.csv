@@ -1,0 +1,12 @@
+QA Area,Finding,Status,Evidence
+Dataset scale,"99,441 orders; 112,650 items; 3,095 sellers; 32,951 products",PASS,EDA findings / Python processing
+Revenue baseline,"R$13,591,643.70 item sales",PASS,EDA / business metrics / dashboard baseline
+Category concentration,18/72 ≈81% revenue,PASS,EDA/category analysis
+Product diffusion,Top 20 ≈5.38%; broad long tail,PASS,EDA/product analysis
+Customer repeat behavior,Repeat share ≈3%,PASS WITH POPULATION QUALIFICATION,EDA/customer analysis + validated KPI
+Delivery,89.1% early; 7.9% late; ≈3% unclassified,PASS WITH DEFINITION QUALIFICATION,EDA/SQL
+Reviews,4.09 average; 57.78% five-star; 11.51% one-star,PASS,EDA/review analysis
+Regional concentration,SP 38.28%; top 3 ≈63.37%,PASS,EDA/reconciled regional analysis
+Payment concentration,Credit card 78.34% of payment value,PASS,EDA/SQL/payment metrics
+Incomplete period handling,Late-2018 near-zero values treated as cutoff artifact,PASS,EDA findings / dataset profile
+Causal claims,No causal interpretation retained,PASS,Final insight review
