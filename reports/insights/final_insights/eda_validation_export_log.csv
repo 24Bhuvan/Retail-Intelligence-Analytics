@@ -1,0 +1,5 @@
+Source,Location,Purpose,Status
+EDA findings,reports/eda/findings.md,Reviewed for Phase 18 insight evidence,PASS
+EDA findings table,reports/eda/eda_findings.csv,Used to support detailed descriptive findings,PASS
+EDA charts,reports/eda/charts/,Visual evidence reviewed where applicable,PASS
+Validation export,reports/insights/eda_qa_checklist.csv,Phase 18 QA checklist created from reviewed EDA evidence,PASS
