@@ -1,0 +1,8 @@
+Check,Scope,Result,Status,Evidence
+São Paulo revenue,"R$5,202,955.05",38.28%,PASS,Reconciled regional baseline / Excel / EDA
+Rio de Janeiro revenue,"R$1,824,092.67",13.42%,PASS,Reconciled regional baseline / Excel / EDA
+Minas Gerais revenue,"R$1,585,308.03",11.66%,PASS,Reconciled regional baseline / Excel / EDA
+Top 3 share,SP + RJ + MG,63.37%,PASS,Reconciled calculation
+SQL conflict,SQL regional_sales.csv gives a different definition/result,Excluded from final evidence,DOCUMENTED,Final report limitation
+Double counting,Regional values reconciled to total item revenue,No unresolved double count in final baseline,PASS,Reconciliation checks
+Causal interpretation,No cause attributed to marketing/logistics/demand,PASS,Final insight review
