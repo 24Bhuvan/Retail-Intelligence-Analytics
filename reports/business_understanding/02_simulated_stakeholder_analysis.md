@@ -226,4 +226,4 @@ The following challenges are assumed as part of the simulated business environme
 
 The stakeholder analysis identifies the primary business roles that would typically participate in a retail analytics initiative. Although the stakeholders presented in this document are simulated, their responsibilities and information requirements reflect common business functions found in e-commerce organizations.
 
-The identified stakeholder needs will serve as the foundation for the **Business Requirements Specification (03_business_requirements_specification.md)**, where these expectations will be translated into formal business and analytical requirements.
+The identified stakeholder needs will serve as the foundation for the **Business Requirements Specification (docs/business_requirements.md)**, where these expectations will be translated into formal business and analytical requirements.
