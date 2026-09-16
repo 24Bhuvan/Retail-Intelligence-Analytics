@@ -1,6 +1,6 @@
 # EDA Findings Report — Phase 10 Exploratory Data Analysis
 
-**Source notebook:** `04_eda.ipynb`
+**Source notebook:** `notebooks/eda.ipynb`
 **Input layer:** `data/processed/*.csv` (8 Phase 9 processed datasets), cross-validated against PostgreSQL analytical outputs and Excel sanity checks
 **Analysis period covered by the data:** 2016-09-04 to 2018-10-17
 **Currency note:** The notebook's main analysis (Sections 4–17) deliberately reports figures in **monetary units** because the project documentation does not state a currency. The dataset structure (states, cities, "boleto" as a payment type) is consistent with the Brazilian Olist e-commerce dataset, and the notebook's own auto-generated chart/export script labels values as R$. This report follows the notebook's own convention and uses **monetary units (mu)**; treat these as R$ (Brazilian Real) if that has been confirmed elsewhere in the project.
