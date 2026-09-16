@@ -1,0 +1,15 @@
+Candidate Insight,SQL,Python,Excel,Power BI,Evidence,Keep?
+Sales concentration by category,✓,✓,✓,✓,category_sales.csv; category_metrics.csv; Category Analysis page; top 18 categories ≈81.2% of category revenue,Yes
+Monthly sales pattern,✓,—,✓,✓,"monthly_sales.csv; monthly_metrics.csv; Monthly Sales Trend; Nov 2017 peak = R$1,010,271.37",Yes
+Regional sales concentration,✓,✓,✓,✓,"regional_sales.csv; regional_metrics.csv; Regional Sales by State; SP = R$5,202,955.05 / 38.28%",Yes
+Payment method concentration,✓,✓,✓,—,"payment_analysis.csv; payment_metrics.csv; credit card = R$12,542,084.19 / 78.34% of payment value",Yes
+Seller revenue concentration,✓,—,✓,✓,seller_performance.csv; seller_metrics.csv; top 10 sellers = 13.15% of revenue,Yes
+Product revenue is highly dispersed,✓,—,✓,✓,product_ranking.csv; product_metrics.csv; top 20 products = 5.38% of revenue,Yes
+Low repeat-customer rate,—,✓,—,✓,final_kpi_results.csv; customer_metrics.csv; Customer Analysis page; repeat customer rate = 3.12%,Yes
+"Delivery performance is generally early, with a late-delivery tail",✓,—,—,—,delivery_analysis.csv; delivery_metrics.csv; 89.1% early and 7.9% late,Yes
+Lower review scores are associated with deliveries closer to or past the estimate,—,—,—,—,EDA review/delivery analysis; association observed across review-score groups,Yes
+Review scores are positively skewed but include a substantial one-star segment,—,—,—,—,"review_metrics.csv; 5-star = 57.78%, 1-star = 11.51%, average = 4.09/5",Yes
+Credit card is the dominant payment rail,✓,—,✓,—,payment_analysis.csv; payment_metrics.csv; credit card share = 78.34%,Yes
+September/October 2018 represents a genuine demand collapse,✓,—,✓,✓,"monthly outputs show near-zero sales, but EDA identifies the period as a dataset-extraction cutoff",No
+Statistical outliers represent erroneous transactions,—,✓,—,—,"EDA anomaly analysis; outliers were identified for investigation, not confirmed as errors",No
+Seller concentration is geographically high,✓,—,✓,✓,seller_performance.csv; seller_metrics.csv; SP contains ≈59.7% of sellers,Yes
