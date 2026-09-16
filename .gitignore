@@ -1,24 +1,29 @@
 # Python
-__pycache__/
+
+**pycache**/
 *.py[cod]
 *$py.class
 
 # Virtual environments
+
 .venv/
 venv/
 env/
 ENV/
 
 # Build artifacts
+
 build/
 dist/
 *.egg-info/
 .eggs/
 
 # Jupyter
+
 .ipynb_checkpoints/
 
-# IDEs
+# IDE and editor files
+
 .vscode/
 .idea/
 *.suo
@@ -27,81 +32,103 @@ dist/
 *.sln.docstates
 .history/
 
-# Environment variables
+# Environment variables and secrets
+
 .env
 .env.*
 *.env
-.python-version
+config.json
+credentials.json
+service_account.json
+secrets.json
 
 # Logs
+
 logs/
 *.log
 
 # Cache
+
 .cache/
 .pytest_cache/
 .mypy_cache/
 
 # Temporary files
+
 temp/
 tmp/
 *.tmp
 *.bak
 *.swp
+*.pid
+*.seed
+*.orig
 
-# Power BI
-*.pbix.autosave
-*.pbix.tmp
-*.pbit.tmp
+# Raw datasets
 
-# Ignore dataset contents (keep folders)
 data/raw/*
 !data/raw/.gitkeep
+!data/raw/README.md
 
-data/interim/*
-!data/interim/.gitkeep
+# Cleaned datasets
 
 data/cleaned/*
 !data/cleaned/.gitkeep
+!data/cleaned/README.md
+
+# Processed datasets
 
 data/processed/*
 !data/processed/.gitkeep
+!data/processed/README.md
+
+# Feature-engineered datasets
+
+data/processed/features/*
+!data/processed/features/.gitkeep
+!data/processed/features/README.md
 
 # Generated reports
+
 reports/final_report/*
 !reports/final_report/.gitkeep
 
 reports/executive_summary/*
 !reports/executive_summary/.gitkeep
 
-# Generated assets
+# Generated visual assets
+
 assets/images/generated/
 diagrams/generated/
 
-# Databases
+# Power BI temporary files
+
+*.pbix.autosave
+*.pbix.tmp
+*.pbit.tmp
+
+# Database files
+
 *.db
 *.sqlite
 *.sqlite3
 
 # Archives
+
 *.zip
 *.rar
 *.7z
 *.tar
 *.gz
 
-# Secrets
-config.json
-credentials.json
-service_account.json
-secrets.json
-
 # Coverage
+
 .coverage
 coverage.xml
 htmlcov/
 
-# OS files
+# Operating system files
+
 .DS_Store
 Thumbs.db
 desktop.ini
@@ -110,7 +137,9 @@ desktop.ini
 ehthumbs.db
 Icon?
 
-# Misc
-*.pid
-*.seed
-*.orig
+# Local and machine-specific files
+
+*.local
+*.local.*
+*.userprefs
+*.code-workspace
