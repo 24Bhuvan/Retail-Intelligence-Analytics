@@ -1,21 +1,25 @@
-MIT License
+# Proprietary License
 
-Copyright (c) 2026 Bhuvan Ummidisetti
+Copyright (c) 2026 Bhuvan Ummidisetti. All rights reserved.
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+This software and its associated source code, documentation, files, and other materials (collectively, the "Software") are proprietary and copyrighted material owned by Bhuvan Ummidisetti.
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+No permission is granted to any person or entity to:
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+* copy the Software;
+* modify, alter, or create derivative works from the Software;
+* reproduce or redistribute the Software;
+* publish, sublicense, sell, rent, lease, or commercially exploit the Software;
+* incorporate the Software or substantial portions of it into another project;
+* claim the Software or derivative works as their own;
+* use the Software for commercial purposes;
+
+without prior written permission from Bhuvan Ummidisetti.
+
+Viewing the source code on GitHub or another hosting platform does not grant any license or ownership rights to the Software.
+
+All rights not expressly granted herein are reserved by the copyright holder.
+
+Unauthorized copying, modification, distribution, publication, or commercial use of the Software is prohibited to the fullest extent permitted by applicable law.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW.
