@@ -1,9 +1,0 @@
-Check,Result,Status,Evidence
-Seller count,"3,095",PASS,Python / business metrics
-Top seller revenue,"R$229,472.63",PASS,Seller metrics / SQL
-Top 5 share,7.61%,PASS,Seller analytical output
-Top 10 share,13.15%,PASS,Seller analytical output
-Top 20 share,21.09%,PASS,Seller analytical output
-Concentration interpretation,Seller revenue more distributed than category revenue,PASS,Seller/category comparisons
-Double counting,Seller ranking based on seller-level revenue aggregation,PASS,SQL/business metrics
-Causal interpretation,No reason for seller performance asserted,PASS,Final insight review
