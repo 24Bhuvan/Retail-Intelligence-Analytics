@@ -444,8 +444,8 @@ The recommendations are derived from the validated Phase 19 business-insight lay
 
 ### Primary Evidence
 
-- `reports/insights/final_insights/business_insights.md`
-- `reports/insights/final_insights/business_insights_validation.md`
+- `reports/insights/business_insights.md`
+- `reports/insights/business_insights_validation.md`
 
 The final insight report contains the eight validated business insights, their evidence, business meaning, implications, limitations, and evidence-source mapping.
 
