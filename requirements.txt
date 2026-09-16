@@ -1,0 +1,14 @@
+# Core data processing
+pandas
+numpy
+
+# Exploratory analysis and notebook support
+matplotlib
+seaborn
+jupyter
+
+# Excel workbook access
+openpyxl
+
+# PostgreSQL cross-validation
+psycopg2-binary
