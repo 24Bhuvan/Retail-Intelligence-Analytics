@@ -605,9 +605,17 @@ Repository: **192 commits**, tagged `phase-22-baseline`. Version-control policy 
 
 ## License
 
-Released under the **MIT License**. See [`LICENSE`](LICENSE).
+This project is proprietary and all rights are reserved by Bhuvan Ummidisetti.
 
-The Olist Brazilian E-commerce Public Dataset is provided by Olist under its own terms and is not redistributed in this repository.
+The source code may be viewed for personal, educational, evaluation, and
+recruitment purposes only. Copying, modifying, redistributing, sublicensing,
+selling, or commercially exploiting the source code is not permitted without
+prior written permission.
+
+See `LICENSE` for the full terms.
+
+The Olist Brazilian E-commerce Public Dataset is provided by Olist under its
+own terms and is not redistributed in this repository.
 
 ---
 
